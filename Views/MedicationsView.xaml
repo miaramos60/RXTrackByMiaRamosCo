@@ -1,0 +1,82 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RXTrackByMiaRamosCo.Views.MedicationsView"
+             xmlns:views="clr-namespace:RXTrackByMiaRamosCo.Views"
+             xmlns:converters="clr-namespace:RXTrackByMiaRamosCo.Converters"
+             xmlns:model="clr-namespace:RXTrackByMiaRamosCo.Models"
+             Title=" ">
+    <!-- Main UI Page -->
+    <ContentPage.Resources>
+        <!--Dictionary that controls and helps the Taken button enable and disable-->
+        <ResourceDictionary>
+            <converters:BoolToButtonEnabledConverter x:Key="BoolToButtonEnabledConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <!--Enables User to Scroll if their list exceeds screen length-->
+    <ScrollView>
+        <!--Headings (Title, Logo, Subheading, Add Medication Button-->
+        <VerticalStackLayout Spacing="10">
+            <Label Text="Welcome"
+                   FontSize="40"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Image Source="home_page_pic.jpeg" 
+                   HorizontalOptions="Center"
+                   WidthRequest="200"/>
+            <Label Text="Here's Today's Regimen:"
+                   FontSize="20"
+                   HorizontalOptions="Center"/>
+            <Button Text="Add Medication"
+                    WidthRequest="375"
+                    Clicked="MedicationPopup_Clicked"
+                    BackgroundColor="DodgerBlue"/>
+            <!--Setting up Medication List-->
+            <CollectionView x:Name="MedicationsList"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MedicationModel">
+                        <Border Padding="5">
+                            <Grid RowDefinitions="Auto, Auto"
+                                  ColumnDefinitions="4*, 3*, 3*"
+                                  Padding="10">
+                                <!--Gets Medication Name, Time, and Dosage to be included on home page-->
+                                <Label Text="{Binding MedicationName}" 
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding MedicationTime, StringFormat= '{0:hh:mm tt}'}"
+                                       FontAttributes="Italic" 
+                                       Grid.Column="1"/>
+                                <Label Text="{Binding Dosage}" 
+                                       Grid.Row="1" 
+                                       Grid.ColumnSpan="2"/>
+                                <!--Button that marks medication as taken-->
+                                <Button Text="Taken"
+                                        BackgroundColor="LightSeaGreen"
+                                        TextColor="Black"
+                                        Clicked="TakenButtonClicked"
+                                        IsEnabled="{Binding IsTaken, Converter={StaticResource BoolToButtonEnabledConverter}}"
+                                        Grid.Row="0" 
+                                        Grid.Column="2"
+                                        HeightRequest="35"
+                                        BorderColor="White"
+                                        BorderWidth="2"/>
+                                <!--Button that will remove a medication from the list if user no longer need to take it-->
+                                <Button Text="Remove"
+                                        BackgroundColor="#FFB496"
+                                        TextColor="Black"
+                                        Clicked="RemoveButtonClicked"
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        HeightRequest="35"
+                                        BorderColor="White"
+                                        BorderWidth="2" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

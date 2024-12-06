@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="RXTrackByMiaRamosCo.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RXTrackByMiaRamosCo"
+    xmlns:views="clr-namespace:RXTrackByMiaRamosCo.Views"
+    Shell.FlyoutBehavior="Disabled">
+
+
+    <!-- Ensure this ShellContent points to the correct page -->
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate views:MedicationsView}" 
+        Route="MainPage"/>
+
+</Shell>
