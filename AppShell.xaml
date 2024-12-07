@@ -7,8 +7,6 @@
     xmlns:views="clr-namespace:RXTrackByMiaRamosCo.Views"
     Shell.FlyoutBehavior="Disabled">
 
-
-    <!-- Ensure this ShellContent points to the correct page -->
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate views:MedicationsView}" 
